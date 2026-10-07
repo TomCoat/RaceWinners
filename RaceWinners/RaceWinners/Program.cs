@@ -42,5 +42,50 @@ public class Program
 
         // YOUR TURN: Rank each group from first to last place.
         // Decide what "fair" means before you start writing code!
+        for (int i = 0; i < groups.Count; i++)
+        {
+            for (int j = i + 1; j < groups.Count; j++)
+            {
+                int firstWins = 0;
+                int secondWins = 0;
+
+        foreach (int firstRank in groups[i].Ranks)
+        {
+            foreach (int secondRank in groups[j].Ranks)
+            {
+                if (firstRank < secondRank)
+                {
+                    firstWins++;
+                }
+                else
+                {
+                    secondWins++;
+                }
+            }
+        }
+
+        if (firstWins > secondWins)
+        {
+            groups[i].Wins++;
+        }
+        else if (secondWins > firstWins)
+        {
+            groups[j].Wins++;
+        }
+    }
+}
+var orderedGroups =
+    groups.OrderByDescending(group => group.Wins);
+Console.WriteLine("\nFinal Ranking:");
+int place = 1;
+foreach (var group in orderedGroups)
+{
+    Console.WriteLine(
+        place + ". " +
+        group.Name + " - " +
+        group.Wins + " wins");
+    place++;
+}
+
     }
 }
